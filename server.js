@@ -5,6 +5,8 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import cors from "cors"
 import nodemailer from "nodemailer"
+import crypto from "crypto"
+
 // import crypto from "crypto"
 dotenv.config({
   path: ".env.local",
@@ -56,7 +58,7 @@ app.post("/api/payment/create", async (req, res) => {
   const frontendData = req.body;
   const privateData = {
     apiKey: config.apiKey,
-    commerceOrder: "uuid-1234-1234-1234",
+    commerceOrder: crypto.randomUUID(),
     urlConfirmation: `${config.baseUrl}/notifications`,
     urlReturn: `${config.baseUrl}/payment-status`,
   };
