@@ -8,7 +8,7 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+import bodyParse from "body-parser"
 // Get the current module's file path
 const __filename = fileURLToPath(import.meta.url);
 
@@ -57,7 +57,8 @@ export function createSign(params) {
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(bodyParse.json());
+app.use(bodyParse.urlencoded({extended:true}))
 
 app.post("/api/payment/create", async (req, res) => {
   const frontendData = req.body;
@@ -113,6 +114,7 @@ app.use(express.static("dist"));
 
 app.post("/payment-status", (req, res) => {
   const { body: token = "lalalala" } = req;
+  console.log(body);
   res.redirect(`/?token=${token}`);
 });
 app.listen(config.port, () => {
