@@ -96,17 +96,16 @@ app.post("/api/payment/create", async (req, res) => {
 });
 
 app.post("/notifications", async (req, res) => {
-  console.log(req,"notification request");
   const mail = {
     from: config.smtpEmail,
     to: "davc93@gmail.com",
     subject: "Mensaje de flow",
-    html: `<h2>Servicio de notificaciones de flow</h2><p>${req}</p>`,
+    html: `<h2>Servicio de notificaciones de flow</h2><p>${JSON.stringify(req.body)}</p>`,
   };
   res.send({
     message: "Notification received",
   });
-  // await sendMail(mail);
+  await sendMail(mail);
 });
 
 app.use(express.static("dist"));
