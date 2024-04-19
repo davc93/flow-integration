@@ -97,8 +97,8 @@ app.post("/api/payment/create", async (req, res) => {
 
 app.post("/notifications", async (req, res) => {
   const { body } = req.body;
-  console.log(req,"notification request");
-  console.log(body,"notification body");
+  // console.log(req,"notification request");
+  // console.log(body,"notification body");
   const mail = {
     from: config.smtpEmail,
     to: "davc93@gmail.com",
@@ -108,13 +108,15 @@ app.post("/notifications", async (req, res) => {
   res.send({
     message: "Notification received",
   });
-  await sendMail(mail);
+  // await sendMail(mail);
 });
 
 app.use(express.static("dist"));
 
 app.post("/payment-status", (req, res) => {
-  console.log(req,"payment-status request");
+  console.log(req.body,"payment-status body");
+  console.log(req.bodyParse,"payment-status bodyParse");
+
   res.redirect(`/?token`);
 });
 app.listen(config.port, () => {
