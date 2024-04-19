@@ -97,7 +97,8 @@ app.post("/api/payment/create", async (req, res) => {
 
 app.post("/notifications", async (req, res) => {
   const { body } = req.body;
-  console.log(req);
+  console.log(req,"notification request");
+  console.log(body,"notification body");
   const mail = {
     from: config.smtpEmail,
     to: "davc93@gmail.com",
@@ -113,9 +114,8 @@ app.post("/notifications", async (req, res) => {
 app.use(express.static("dist"));
 
 app.post("/payment-status", (req, res) => {
-  const { body: token = "lalalala" } = req;
-  console.log(body);
-  res.redirect(`/?token=${token}`);
+  console.log(req,"payment-status request");
+  res.redirect(`/?token`);
 });
 app.listen(config.port, () => {
   console.log("Servidor escuchando en puerto:", config.port);
