@@ -71,14 +71,15 @@ app.post("/api/payment/create", async (req, res) => {
     s:signature
   }
 
-  console.log(body);
   const encodedBody = querystring.stringify(body);
   try {
     const response = await axios.post(`${config.apiUrl}/payment/create`, encodedBody);
     res.status(200).send({url:response.data.url+"?token="+response.data.token});
   } catch (error) {
-    // console.error(error);
-    res.status(500).json(error);
+    console.error(error);
+    res.status(500).json({
+      message:"something went wrong"
+    });
   }
 });
 
