@@ -84,11 +84,12 @@ app.post("/api/payment/create", async (req, res) => {
 
 app.post("/notifications",async (req, res) => {
   const {body} = req.body
+  console.log(req);
   const mail = {
     from: config.smtpEmail,
     to: "davc93@gmail.com",
     subject: "Mensaje de flow",
-    html: `<h2>Servicio de notificaciones de flow</h2><p>${body}</p>`,
+    html: `<h2>Servicio de notificaciones de flow</h2><p>${req}</p>`,
   };
   res.send({
     message: "Notification received",
