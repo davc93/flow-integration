@@ -111,7 +111,7 @@ app.post("/notifications", async (req, res) => {
 
 app.use(express.static("dist"));
 
-app.post("/", (req, res) => {
+app.post("/payment-status", (req, res) => {
   const { body: token = "lalalala" } = req;
   res.redirect(`/?token=${token}`);
 });
