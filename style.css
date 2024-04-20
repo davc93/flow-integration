@@ -102,3 +102,14 @@ h1 {
   display: flex;
   flex-wrap: wrap;
 }
+
+nav{
+  li{
+    list-style: none;
+  }
+  ul{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+}

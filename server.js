@@ -8,7 +8,7 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import bodyParse from "body-parser"
+import bodyParse from "body-parser";
 // Get the current module's file path
 const __filename = fileURLToPath(import.meta.url);
 
@@ -58,7 +58,7 @@ export function createSign(params) {
 const app = express();
 app.use(cors());
 app.use(bodyParse.json());
-app.use(bodyParse.urlencoded({extended:true}))
+app.use(bodyParse.urlencoded({ extended: true }));
 
 app.post("/api/payment/create", async (req, res) => {
   const frontendData = req.body;
@@ -95,12 +95,40 @@ app.post("/api/payment/create", async (req, res) => {
   }
 });
 
+app.post("/api/payment/status", async (req, res) => {
+  const frontendData = req.body;
+  const privateData = {
+    apiKey: config.apiKey,
+  };
+  const params = {
+    ...frontendData,
+    ...privateData,
+  };
+  const signature = createSign(params);
+  const body = {
+    ...params,
+    s: signature,
+  };
+
+  try {
+    const response = await axios.get(`${config.apiUrl}/payment/getStatus`);
+    res.status(200).json(response.data)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "something went wrong",
+    });
+  }
+});
+
 app.post("/notifications", async (req, res) => {
   const mail = {
     from: config.smtpEmail,
     to: "davc93@gmail.com",
     subject: "Mensaje de flow",
-    html: `<h2>Servicio de notificaciones de flow</h2><p>${JSON.stringify(req.body)}</p>`,
+    html: `<h2>Servicio de notificaciones de flow</h2><p>${JSON.stringify(
+      req.body
+    )}</p>`,
   };
   res.send({
     message: "Notification received",

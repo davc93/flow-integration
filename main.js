@@ -3,21 +3,39 @@ const config = {
   flowServiceUrl: import.meta.env.VITE_FLOW_SERVICE_URL,
 };
 
+const payButton = document.querySelector("#pay-button");
+const statusButton = document.querySelector("#status-button");
+const statusInput = document.querySelector("#status-input");
+const paymentInfo = document.querySelector("#payment-info");
+
 const params = new URLSearchParams(window.location.search);
+const token = params.get("token");
+
+statusButton.addEventListener("click",(event)=>{
+  event.preventDefault()
+  getOrderStatus(statusInput.value)
+})
+
+if (token) {
+  statusInput.value = token;
+  getOrderStatus(token);
+
+}
 
 function navigation(ev) {
-  // const hash = window.location.hash;
-  // const pages = document.querySelectorAll("#pages > *");
-  // pages.forEach((page) => {
-  //   if (!hash.includes(page.id)) {
-  //       page.style.display = "none";
-  //   }
-  // });
+  let hash = window.location.hash;
+  const pages = document.querySelectorAll("#pages > *");
+  pages.forEach((page) => {
+    hash = !hash ? "checkout" : hash;
+    if (!hash.includes(page.id)) {
+      page.style.display = "none";
+    } else {
+      page.style.display = "block";
+    }
+  });
 }
 window.addEventListener("DOMContentLoaded", navigation);
 window.addEventListener("hashchange", navigation);
-
-const PayButton = document.querySelector("#pay-button");
 
 const products = [
   {
@@ -51,9 +69,25 @@ async function sendOrder() {
     body: JSON.stringify(order),
   });
   const data = await response.json();
-  PayButton.href = data.url;
-  PayButton.classList.remove("button--disabled");
-  PayButton.target = "_blank";
+  payButton.href = data.url;
+  payButton.classList.remove("button--disabled");
+  payButton.target = "_blank";
+}
+async function getOrderStatus(token) {
+  // const response = await fetch(`${config.flowServiceUrl}/payment/status`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ token }),
+  // });
+  // const data = await response.json();
+  paymentInfo.textContent = `
+  {
+    "name":"Diego"
+  }
+  
+  `
 }
 
 const productsComponent = products.map((product) => {

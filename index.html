@@ -17,20 +17,25 @@
         </li>
 
         <li>
-          <a href="#confirmation">Confirmation</a>
+          <a href="#payment-status">Estado del pago</a>
         </li>
 
-        <li>
-          <a href="#reembolso">Reembolso</a>
-        </li>
       </ul>
     </nav>
     <div id="pages">
-      <div id="confirmation">
-        <h1>Confirmacion</h1>
+      <div id="payment-status">
+        <h1>Estado del pago</h1>
+        <pre id="payment-info"></pre>
+        <form>
+          <label >
+            <span>Token de la orden</span>
+            <input id="status-input" type="text">
+          </label>
+          <button id="status-button"  class="button">Consultar</button>
+        </form>
       </div>
       <div id="checkout">
-
+        <h1>Checkout</h1>
         <div id="products-detail" class="products-detail">
 
         </div>
@@ -40,9 +45,6 @@
           </a>
 
         </div>
-      </div>
-      <div id="refund">
-        <h1>Reembolso</h1>
       </div>
     </div>
 
