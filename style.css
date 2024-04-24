@@ -37,12 +37,13 @@ h1 {
 
 #app {
   max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
+  height: 80svh ;
+  width: 90%;
   /* text-align: center; */
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  justify-content: space-between;
   gap: 40px;
 }
 
@@ -100,7 +101,7 @@ h1 {
 
 .products-detail{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 nav{
@@ -111,5 +112,43 @@ nav{
     display: flex;
     justify-content: center;
     gap: 20px;
+  }
+}
+
+.checkout-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  input{
+    outline: none;
+    border-radius: 15px;
+    border-width: 1px;
+    border-color: #646cffaa;
+    padding: 5px 10px;
+    font-size: 16px;
+    background: transparent;
+  }
+}
+.page{
+  display: none;
+
+}
+.page-active{
+  display: block;
+  animation-name: page-transition;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;  
+}
+@keyframes page-transition {
+  from{
+    opacity: 0;
+    transform: translateX(100px);
   }
 }

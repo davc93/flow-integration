@@ -23,27 +23,43 @@
       </ul>
     </nav>
     <div id="pages">
-      <div id="payment-status">
+      <div class="page" id="payment-status">
         <h1>Estado del pago</h1>
-        <div id="payment-info" style="width: 100%; overflow: scroll; height: 300px;"></div>
+        <div id="payment-info" style="width: 100%; overflow: scroll; height: 200px;"></div>
         <form>
-          <label >
+          <label>
             <span>Token de la orden</span>
             <input id="status-input" type="text">
           </label>
-          <button id="status-button"  class="button">Consultar</button>
+          <button id="status-button" class="button">Consultar</button>
         </form>
       </div>
-      <div id="checkout">
-        <h1>Checkout</h1>
-        <div id="products-detail" class="products-detail">
+      <div id="checkout" class="page checkout">
+        <div class="checkout-container">
 
-        </div>
-        <div class="resume card">
-          <a id="pay-button" class="button button--disabled">
-            Pagar
-          </a>
+          <div id="products-detail" class="products-detail">
 
+          </div>
+          <div class="resume card">
+            <h2>Formulario de pago</h2>
+            <div>
+              <span>
+
+                Monto total:
+              </span>
+              <span id="total-amount">
+
+              </span>
+            </div>
+            <form id="pay-form">
+              <input type="text" placeholder="Ingrese su correo" required>
+              <button id="pay-button" class="button" type="submit">
+                Pagar
+              </button>
+            </form>
+
+
+          </div>
         </div>
       </div>
     </div>
