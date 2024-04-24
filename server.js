@@ -111,12 +111,13 @@ app.post("/api/payment/status", async (req, res) => {
   };
 
   try {
-    const response = await axios.get(`${config.apiUrl}/payment/getStatus`);
+    const query = (new URLSearchParams(body)).toString()
+    const response = await axios.get(`${config.apiUrl}/payment/getStatus?${query}`)
     res.status(200).json(response.data)
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "something went wrong",
+      message: "Something went wrong",
     });
   }
 });
@@ -139,7 +140,7 @@ app.post("/notifications", async (req, res) => {
 app.use(express.static("dist"));
 
 app.post("/payment-status", (req, res) => {
-  res.redirect(`/?token=${req.body.token}`);
+  res.redirect(`/?token=${req.body.token}#payment-status`);
 });
 app.listen(config.port, () => {
   console.log("Servidor escuchando en puerto:", config.port);

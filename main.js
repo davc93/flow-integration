@@ -10,7 +10,6 @@ const paymentInfo = document.querySelector("#payment-info");
 
 const params = new URLSearchParams(window.location.search);
 const token = params.get("token");
-
 statusButton.addEventListener("click",(event)=>{
   event.preventDefault()
   getOrderStatus(statusInput.value)
@@ -74,20 +73,17 @@ async function sendOrder() {
   payButton.target = "_blank";
 }
 async function getOrderStatus(token) {
-  // const response = await fetch(`${config.flowServiceUrl}/payment/status`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ token }),
-  // });
-  // const data = await response.json();
-  paymentInfo.textContent = `
-  {
-    "name":"Diego"
-  }
-  
-  `
+  paymentInfo.textContent = "Cargando..."
+
+  const response = await fetch(`${config.flowServiceUrl}/payment/status`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
+  const data = await response.json();
+  paymentInfo.textContent = JSON.stringify(data)
 }
 
 const productsComponent = products.map((product) => {
